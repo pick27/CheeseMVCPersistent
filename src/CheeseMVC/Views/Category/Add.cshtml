@@ -1,0 +1,13 @@
+﻿@using CheeseMVC.ViewModels;
+@model AddCategoryViewModel
+
+<form method="Post" asp-controller="Category" asp-action="Add">
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+
+    <input type="submit" name="Add Category" />
+
+   
+</form>
