@@ -8,9 +8,10 @@ using CheeseMVC.Data;
 namespace CheeseMVC.Migrations
 {
     [DbContext(typeof(CheeseDbContext))]
-    partial class CheeseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170411154941_FourTables")]
+    partial class FourTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -83,7 +84,7 @@ namespace CheeseMVC.Migrations
 
             modelBuilder.Entity("CheeseMVC.Models.CheeseMenu", b =>
                 {
-                    b.HasOne("CheeseMVC.Models.Cheese", "Cheeses")
+                    b.HasOne("CheeseMVC.Models.Cheese", "Cheese")
                         .WithMany()
                         .HasForeignKey("CheeseID")
                         .OnDelete(DeleteBehavior.Cascade);
