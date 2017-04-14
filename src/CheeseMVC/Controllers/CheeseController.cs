@@ -20,6 +20,7 @@ namespace CheeseMVC.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewBag.Title = "List of all Cheeses";
             IList<Cheese> cheeses = context.Cheeses.Include(c => c.Category).ToList();
             return View(cheeses);
         }
@@ -69,10 +70,19 @@ namespace CheeseMVC.Controllers
             {
                 Cheese theCheese = context.Cheeses.Single(c => c.ID == cheeseId);
                 context.Cheeses.Remove(theCheese);
+
+                IList<CheeseMenu> existingItems = context.CheeseMenus
+                        .Where(cm => cm.CheeseID == cheeseId)
+                        .ToList();
+                if (existingItems.Count > 0)
+                {
+                    foreach (var cheeseMenu in existingItems)
+                    {
+                        context.CheeseMenus.Remove(cheeseMenu);
+                    }
+                }
+                context.SaveChanges();
             }
-
-            context.SaveChanges();
-
             return Redirect("/");
         }
     }
